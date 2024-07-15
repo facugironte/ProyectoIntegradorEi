@@ -1,0 +1,48 @@
+package com.integrador.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.integrador.service.GeneroService;
+import com.integrador.service.PeliculaService;
+
+@Controller
+public class ViewsController {
+	
+	@Autowired
+	private PeliculaService peliculaService;
+	
+	@Autowired
+	private GeneroService generoService;
+	
+	@GetMapping(value = "/home")
+	public String paginaPrincipal(Model model) {
+		
+		List<com.integrador.model.Pelicula> peliculas = peliculaService.findAllPeliculas();
+		
+		
+		model.addAttribute("peliculas", peliculas);
+		model.addAttribute("generos", generoService.findAllGeneros());
+		
+		return "home";
+	}
+	
+	@PostMapping(value = "/busqueda")
+	public String busquedaPeliculas(@RequestParam String busqueda, Model model) {
+		
+		List<com.integrador.model.Pelicula> peliculas = peliculaService.findPeliculasByString(busqueda);
+		
+		
+		model.addAttribute("peliculas", peliculas);
+		model.addAttribute("generos", generoService.findAllGeneros());
+		
+		return "busqueda";
+	}
+	
+}
