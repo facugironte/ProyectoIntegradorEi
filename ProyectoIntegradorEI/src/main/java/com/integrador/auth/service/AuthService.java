@@ -56,10 +56,12 @@ public class AuthService {
 	public AuthResponse register(RegisterRequest request) {
 		User user = new User();
 		user.setEmail(request.getEmail());
-		user.setFullName(request.getFullname());
+		user.setName(request.getName());
+		user.setLastname(request.getLastname());
 		user.setPassword(passwordEncoder.encode(request.getPassword()));
+		user.setActivo(true);
 		
-		Rol defaultRol = rolRepository.findByName("ROLE_SOCIO").get();
+		Rol defaultRol = rolRepository.findByName(request.getRol()).get();
 		user.addRole(defaultRol);
 		
 		userRepository.save(user);

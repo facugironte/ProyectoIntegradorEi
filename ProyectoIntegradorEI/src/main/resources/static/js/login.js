@@ -1,5 +1,5 @@
 function login() {
-	
+		
 	const email = document.getElementById("email").value
 	const pass = document.getElementById("pwd").value
 	
@@ -17,6 +17,8 @@ function login() {
 			localStorage.setItem('token', data.token);
 			setCookie('auth_token', data.token, 7);
 			redirect("/home");
+			
+			localStorage.setItem("usuarioActual", email)
 		}
 	})
 	.catch(error =>{
@@ -38,7 +40,13 @@ function register(){
     headers: {
         'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ email: email, password: pass, fullname: nombre + " " + apellido })
+    body: JSON.stringify({ 
+		email: email, 
+		password: pass, 
+		name: nombre, 
+		lastname: apellido,
+		rol:"ROLE_SOCIO"
+	 })
     })
 	.then(response => response.json())
 	.then(data =>{

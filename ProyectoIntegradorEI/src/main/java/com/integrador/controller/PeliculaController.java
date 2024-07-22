@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.integrador.model.Pelicula;
-import com.integrador.requests.RequestPelicula;
+import com.integrador.requests.RequestPeliculaId;
 import com.integrador.service.PeliculaService;
 
 @RestController
@@ -39,7 +39,7 @@ public class PeliculaController {
 	}
 	
 	@PostMapping(value = "/get-pelicula")
-	public ResponseEntity<Pelicula> getPeliculaByID(@RequestBody RequestPelicula request){
+	public ResponseEntity<Pelicula> getPeliculaByID(@RequestBody RequestPeliculaId request){
 		
 		com.integrador.entity.Pelicula pelicula = peliculaService.findPeliculaByID(request.getId());
 		
@@ -52,7 +52,7 @@ public class PeliculaController {
 	
 	
 	@DeleteMapping(value = "/delete")
-	public ResponseEntity<Void> deletePelicula(@RequestBody RequestPelicula request){
+	public ResponseEntity<Void> deletePelicula(@RequestBody RequestPeliculaId request){
 			
 		peliculaService.deletePeliculaById(request.getId());
 		return new ResponseEntity<>(HttpStatus.OK);

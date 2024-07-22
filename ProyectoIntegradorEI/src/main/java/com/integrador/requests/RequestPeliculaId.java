@@ -3,6 +3,6 @@ package com.integrador.requests;
 import lombok.Getter;
 
 @Getter
-public class RequestPelicula {
+public class RequestPeliculaId {
 	private Long id;
 }

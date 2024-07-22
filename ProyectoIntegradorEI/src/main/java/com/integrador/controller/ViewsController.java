@@ -22,7 +22,7 @@ public class ViewsController {
 	private GeneroService generoService;
 	
 	@GetMapping(value = "/home")
-	public String paginaPrincipal(Model model) {
+	public String misOrdenes(Model model) {
 		
 		List<com.integrador.model.Pelicula> peliculas = peliculaService.findAllPeliculas();
 		
@@ -33,12 +33,24 @@ public class ViewsController {
 		return "home";
 	}
 	
+	@GetMapping(value = "/mis-ordenes")
+	public String paginaPrincipal(Model model) {
+		
+		List<com.integrador.model.Pelicula> peliculas = peliculaService.findAllPeliculas();
+		
+		
+		model.addAttribute("peliculas", peliculas);
+		model.addAttribute("generos", generoService.findAllGeneros());
+		
+		return "ordenesSocio";
+	}
+	
 	@PostMapping(value = "/busqueda")
 	public String busquedaPeliculas(@RequestParam String busqueda, Model model) {
 		
 		List<com.integrador.model.Pelicula> peliculas = peliculaService.findPeliculasByString(busqueda);
 		
-		
+		model.addAttribute("busqueda", busqueda);
 		model.addAttribute("peliculas", peliculas);
 		model.addAttribute("generos", generoService.findAllGeneros());
 		

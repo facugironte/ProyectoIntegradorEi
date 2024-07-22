@@ -1,6 +1,6 @@
 package com.integrador.model;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,12 +11,10 @@ import lombok.ToString;
 @Setter
 @ToString
 @AllArgsConstructor
-public class Pelicula {
+public class Orden {
 	private Long id;
-	private String titulo;
-	private String img;
-	private String url;
-	private double precio;
-	private List<String> generos;
+	private LocalDateTime fechaCreacion;
+	private String estado;
+	private double monto;
 	
 }

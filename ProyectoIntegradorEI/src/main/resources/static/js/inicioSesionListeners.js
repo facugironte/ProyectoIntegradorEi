@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     const token = localStorage.getItem('token');
+    
+    
+    
 	if (token != null){
 		//redirect("/home");
 	}

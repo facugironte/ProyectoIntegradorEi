@@ -42,6 +42,9 @@ public class Pelicula {
 	@Column(name = "imagen_url", length = 1000)
 	private String img;
 	
+	@Column(name = "precio")
+	private double precio;
+	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(
 		name = "peliculas_genero", 
@@ -52,7 +55,7 @@ public class Pelicula {
 	private Set<Genero> generos = new HashSet<>();
 	
 	public com.integrador.model.Pelicula toDto(){
-		return new com.integrador.model.Pelicula(this.id, this.titulo, this.img, this.url, generosToString(this.generos));
+		return new com.integrador.model.Pelicula(this.id, this.titulo, this.img, this.url,this.precio, generosToString(this.generos));
 	}
 
 	private List<String> generosToString(Set<Genero> generos2) {

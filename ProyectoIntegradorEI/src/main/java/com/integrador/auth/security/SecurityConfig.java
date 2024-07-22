@@ -40,7 +40,8 @@ public class SecurityConfig {
 		                    		"/favicon.ico", 
 		                    		"/"
 		                    		).permitAll()
-                    .requestMatchers("/home").hasRole("SOCIO")
+                    .requestMatchers("/home").hasAnyRole("SOCIO", "ADMIN")
+                    .requestMatchers("/orden/add").hasRole("SOCIO")
                     .anyRequest().authenticated()
             )
             .sessionManagement(sessionManager ->

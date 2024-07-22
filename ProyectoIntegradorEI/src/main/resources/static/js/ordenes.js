@@ -1,60 +1,61 @@
 document.addEventListener('DOMContentLoaded', function() {
 	
-	let ultimoUsuario = localStorage.getItem("ultimoUsuario") || "";
-	let usuarioActual = localStorage.getItem("usuarioActual") || "";
-	let carritoActual;
-	const cartCounter = document.getElementById("cartCount")
-	
-	if (ultimoUsuario != usuarioActual){
-		carritoActual =  [];
-		localStorage.setItem("ultimoUsuario", usuarioActual)
-		cartCounter.textContent = 0;
-		localStorage.setItem("carrito", JSON.stringify(carritoActual))
-	} else{
-
-		carritoActual = JSON.parse(localStorage.getItem("carrito")) || [];
-		cartCounter.textContent = carritoActual.length
-	}
-	
-	const cartIcon = document.getElementById("cartIcon")
-	
-	cartIcon.addEventListener('click', function(event){
-		armarCarrito()
-		showModal('carritoModal')
-	})
 	
     const token = localStorage.getItem('token');
 	if (token == null){
 		redirect("/login");
 	} 
 	
-	document.getElementById("addPeliculaForm").addEventListener("submit", function(event) {
-        event.preventDefault();
-        addPelicula();
-    });
-    
-    document.getElementById("modifyPeliculaForm").addEventListener("submit", function(event) {
-        event.preventDefault();
-        modifyPelicula();
-    });
-    
-    document.getElementById("cancelarOrdenForm").addEventListener("submit", function(event) {
-        event.preventDefault();
-        cancelarOrden();
-    });
-    
-    document.getElementById("solicitarOrdenForm").addEventListener("submit", function(event) {
-        event.preventDefault();
-        solicitarOrden();
-    });
-    
-    document.getElementById("codigoCupon").addEventListener("change", function(event) {
-        actualizarTotal();
-    });
-
+	cargarOrdenes()
 });
 
+async function cargarOrdenes(){
+	
+	const table = document.getElementById("ordenesTableBody")
+	table.innerHTML = ""
+	
+	try{
+		const response = await fetch('/orden/get-ordenes-socio', {
+		    method: 'POST',
+		    headers: {
+		        'Content-Type': 'application/json'
+		    },
+		    body: JSON.stringify({ 
+				email: localStorage.getItem("usuarioActual")
+			 })
+	    })
+	    
+	    if(!response.ok){
+			throw new Error("Error de red")
+		}
+		
+		const data = await response.json()
+			console.log(data)
+		for(let i = 0; i<data.length; i++){
+			const orden = data[i]
+			const row = document.createElement("tr")
+			row.innerHTML = `
+	            <td>${orden.id}</td>
+	            <td>${orden.fechaCreacion}</td>
+	            <td>${orden.estado}</td>
+	            <td><span>$ </span>${orden.monto}</td>
+	        `;
+	        
+	        table.appendChild(row)
+		}
+	}
+	catch(error){
+		alert(error)
+	}
+	
+	
+	
+	
+	
+	
+}
 
+/*
 function addPelicula(){
 	
 	const titulo = document.getElementById("addTitulo").value
@@ -365,4 +366,4 @@ async function solicitarOrden(){
 		localStorage.setItem("carrito", JSON.stringify(carritoActual))		
 		redirect("/home")
 	}
-}
+}*/

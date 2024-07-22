@@ -1,5 +1,7 @@
 package com.integrador.auth.dto;
 
+import com.integrador.entity.Rol;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,8 +16,11 @@ import lombok.ToString;
 public class RegisterRequest {
 	
     private String email;
-    private String fullname;
+    private String name;
+    private String lastname;
     private String password;
+    
+    private String rol;
     
     
 }

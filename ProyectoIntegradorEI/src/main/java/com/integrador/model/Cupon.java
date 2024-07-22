@@ -11,12 +11,8 @@ import lombok.ToString;
 @Setter
 @ToString
 @AllArgsConstructor
-public class Pelicula {
+public class Cupon {
 	private Long id;
-	private String titulo;
-	private String img;
-	private String url;
-	private double precio;
-	private List<String> generos;
+	private double porcentaje;
 	
 }

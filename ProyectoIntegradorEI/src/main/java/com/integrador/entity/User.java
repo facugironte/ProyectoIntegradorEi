@@ -1,11 +1,13 @@
 package com.integrador.entity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +23,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,15 +42,28 @@ public class User implements UserDetails {
 	private String email;
 
 	@Column(nullable = false, length = 255)
-	private String fullName;
+	private String name;
+	
+	@Column(nullable = false, length = 255)
+	private String lastname;
 
 	@Column(nullable = false, length = 255)
 	private String password;
+	
+	@CreatedDate
+	private LocalDateTime fecha_alta;
+	
+	@Column
+	private boolean activo;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	@JsonIgnore
 	private Set<Rol> roles = new HashSet<>();
+	
+	@OneToMany(mappedBy = "socio", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	private List<Orden> ordenes;
+	
 	
 	public void addRole(Rol role) {
 		this.roles.add(role);

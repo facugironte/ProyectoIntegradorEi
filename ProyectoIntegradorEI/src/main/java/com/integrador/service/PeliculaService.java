@@ -29,6 +29,7 @@ public class PeliculaService {
 		pelicula.setTitulo(request.getTitulo());
 		pelicula.setImg(request.getImg());
 		pelicula.setUrl(request.getUrl());
+		pelicula.setPrecio(request.getPrecio());
 		
 		for(String g: request.getGeneros()) {
 			Genero genero = generoRepository.findByGenero(g);
@@ -48,6 +49,7 @@ public class PeliculaService {
 			pelicula.setTitulo(request.getTitulo());
 			pelicula.setImg(request.getImg());
 			pelicula.setUrl(request.getUrl());
+			pelicula.setPrecio(request.getPrecio());
 			
 			Set<Genero> generos = new HashSet<>();
 			
