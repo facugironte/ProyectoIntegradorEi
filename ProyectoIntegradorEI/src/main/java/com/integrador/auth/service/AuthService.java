@@ -54,6 +54,13 @@ public class AuthService {
 	}
 	
 	public AuthResponse register(RegisterRequest request) {
+		
+		Rol rol = rolRepository.findByName("ROLE_SOCIO").get();
+		
+		if(request.isAdminCheck() && request.getAdminCode().equals("admin")) {
+			rol = rolRepository.findByName("ROLE_ADMIN").get();
+		} 
+		
 		User user = new User();
 		user.setEmail(request.getEmail());
 		user.setName(request.getName());
@@ -61,8 +68,7 @@ public class AuthService {
 		user.setPassword(passwordEncoder.encode(request.getPassword()));
 		user.setActivo(true);
 		
-		Rol defaultRol = rolRepository.findByName(request.getRol()).get();
-		user.addRole(defaultRol);
+		user.addRole(rol);
 		
 		userRepository.save(user);
 		

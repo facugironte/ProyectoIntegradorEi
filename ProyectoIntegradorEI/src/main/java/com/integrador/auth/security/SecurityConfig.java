@@ -38,10 +38,13 @@ public class SecurityConfig {
 		                    		"/css/**",
 		                    		"/js/**",
 		                    		"/favicon.ico", 
-		                    		"/"
+		                    		"/",
+		                    		"/home"
 		                    		).permitAll()
-                    .requestMatchers("/home").hasAnyRole("SOCIO", "ADMIN")
+                    .requestMatchers("/ordenes").hasAnyRole("ADMIN")
+                    .requestMatchers("/mis-ordenes").hasAnyRole("SOCIO")
                     .requestMatchers("/orden/add").hasRole("SOCIO")
+                    .requestMatchers("/orden/get-ordenes").hasAnyRole("SOCIO", "ADMIN")
                     .anyRequest().authenticated()
             )
             .sessionManagement(sessionManager ->

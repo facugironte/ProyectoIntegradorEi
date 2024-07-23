@@ -15,7 +15,7 @@ async function cargarOrdenes(){
 	table.innerHTML = ""
 	
 	try{
-		const response = await fetch('/orden/get-ordenes-socio', {
+		const response = await fetch('/orden/get-ordenes', {
 		    method: 'POST',
 		    headers: {
 		        'Content-Type': 'application/json'

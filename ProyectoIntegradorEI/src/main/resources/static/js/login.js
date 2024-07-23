@@ -34,6 +34,8 @@ function register(){
 	const email = document.getElementById("registerEmail").value
 	const pass = document.getElementById("registerPwd").value
 	
+	const adminCheck = document.getElementById("checkAdmin").checked
+	const adminCode = document.getElementById("adminCode").value
 	
     fetch('/auth/register', {
     method: 'POST',
@@ -45,7 +47,8 @@ function register(){
 		password: pass, 
 		name: nombre, 
 		lastname: apellido,
-		rol:"ROLE_SOCIO"
+		adminCheck: adminCheck,
+		adminCode: adminCode
 	 })
     })
 	.then(response => response.json())

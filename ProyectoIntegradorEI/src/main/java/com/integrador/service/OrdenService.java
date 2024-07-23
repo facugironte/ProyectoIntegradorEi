@@ -93,74 +93,31 @@ public class OrdenService {
 		return ordenesModelo;
 		
 	}
-	
-	/*public void updatePelicula(com.integrador.model.Pelicula request) {
+
+	public List<com.integrador.model.Orden> findAllOrdenes() {
 		
-		Optional<Pelicula> existePelicula = peliculaRepository.findById(request.getId());
-		
-		if(existePelicula.isPresent()) {
-			Pelicula pelicula = existePelicula.get();
-			
-			pelicula.setTitulo(request.getTitulo());
-			pelicula.setImg(request.getImg());
-			pelicula.setUrl(request.getUrl());
-			
-			Set<Genero> generos = new HashSet<>();
-			
-			for(String g: request.getGeneros()) {
-				generos.add(generoRepository.findByGenero(g));
+		List<Orden> ordenesOpt = ordenRepository.findAll();
+		List<com.integrador.model.Orden> ordenesModelo = new ArrayList<>();
+		if(!ordenesOpt.isEmpty()) {
+			for (Orden o: ordenesOpt) {
+				ordenesModelo.add(o.toDto());
 			}
-			
-			pelicula.setGeneros(generos);
-			
-			peliculaRepository.save(pelicula);
-			
 		}
 		
-		
+		return ordenesModelo;
 	}
 	
-	public List<com.integrador.model.Pelicula> findAllPeliculas(){
-		
-		List<Pelicula> peliculasEntity = peliculaRepository.findAll();
-		List<com.integrador.model.Pelicula> peliculasModel = new ArrayList<>();
-		 
-		for(Pelicula p: peliculasEntity) {
-			peliculasModel.add(p.toDto());
-		}
-		
-		
-		return peliculasModel;
-	}
-	*/
-
-	/*
-	public List<com.integrador.model.Pelicula> findPeliculasByString(String busqueda) {
-
-		List<Pelicula> peliculasEntity = peliculaRepository.findByTituloContaining(busqueda);
-		List<com.integrador.model.Pelicula> peliculasModel = new ArrayList<>();
-		 
-		for(Pelicula p: peliculasEntity) {
-			peliculasModel.add(p.toDto());
-		}
-		
-		
-		return peliculasModel;
-				
+	public void approveOrden(int id) {
+		Orden orden = ordenRepository.getById(id);
+		orden.setEstadoOrden(estadoOrdenRepository.findByEstado("APROBADA"));
+		ordenRepository.save(orden);
 	}
 	
-	public void deletePeliculaById(Long id) {
-		Pelicula pelicula = peliculaRepository.findById(id).orElse(null);
-		
-		if(pelicula != null) {
-			pelicula.getGeneros().clear();
-			peliculaRepository.deleteById(id);
-		}
-		
-	}*/
-
-
-
+	public void declineOrden(int id) {
+		Orden orden = ordenRepository.getById(id);
+		orden.setEstadoOrden(estadoOrdenRepository.findByEstado("RECHAZADA"));
+		ordenRepository.save(orden);
+	}
 
 	
 }

@@ -84,10 +84,30 @@ body {
     display: flex;
 }
 
-.eye-btn, .delete-btn, .cart-btn {
+.eye-btn, .delete-btn, .cart-btn, .btn-approve{
     background-color: rgba(0, 0, 0, 0);
     padding: 2px;
     color: white;
+    border: none;
+}
+
+.btn-approve, .btn-decline{
+    background-color: rgba(0, 0, 0, 0);
+    padding:0;
+    border: none;
+    font-size: 1.5rem;
+}
+
+.btn-approve i{
+    background-color: rgba(0, 0, 0, 0);
+    color: green;
+    border: none;
+    
+}
+
+.btn-decline i{
+    background-color: rgba(0, 0, 0, 0);
+    color: red;
     border: none;
 }
 
@@ -169,4 +189,5 @@ a {
     font-size: 0.75rem;
     font-weight: bold;
 }
+
 

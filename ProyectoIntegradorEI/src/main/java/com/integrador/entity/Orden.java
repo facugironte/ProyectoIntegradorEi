@@ -23,10 +23,12 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
 @Setter
+@ToString
 @Table(name = "ordenes")
 public class Orden {
 
@@ -67,7 +69,7 @@ public class Orden {
 	}
 
 	public com.integrador.model.Orden toDto() {
-		return new com.integrador.model.Orden(this.id, this.fecha_creacion, this.estadoOrden.getEstado(), this.monto);		
+		return new com.integrador.model.Orden(this.id, this.fecha_creacion, this.socio.getEmail(),this.estadoOrden.getEstado(), this.monto);		
 	}
 
 	

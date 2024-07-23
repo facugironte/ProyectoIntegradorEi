@@ -20,7 +20,8 @@ public class RegisterRequest {
     private String lastname;
     private String password;
     
-    private String rol;
+    private boolean adminCheck;
+    private String adminCode;
     
     
 }

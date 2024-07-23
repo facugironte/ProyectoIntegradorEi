@@ -14,6 +14,7 @@ import lombok.ToString;
 public class Orden {
 	private Long id;
 	private LocalDateTime fechaCreacion;
+	private String emailSocio;
 	private String estado;
 	private double monto;
 	

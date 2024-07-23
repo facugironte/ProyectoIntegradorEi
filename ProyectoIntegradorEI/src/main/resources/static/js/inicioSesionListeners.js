@@ -16,6 +16,17 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         register();
     });
+    
+    document.getElementById("checkAdmin").addEventListener("change", function(event) {
+        event.preventDefault();
+        const checkbox = document.getElementById("checkAdmin")
+        const inputCode = document.getElementById("adminCode")
+        if(checkbox.checked){
+			inputCode.hidden = false;
+		} else{
+			inputCode.hidden = true;
+		}
+    });
 	
 	
 });
