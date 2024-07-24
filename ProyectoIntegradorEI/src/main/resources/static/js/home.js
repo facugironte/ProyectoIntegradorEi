@@ -13,23 +13,35 @@ document.addEventListener('DOMContentLoaded', function() {
 	} else{
 
 		carritoActual = JSON.parse(localStorage.getItem("carrito")) || [];
-		cartCounter.textContent = carritoActual.length
+		try{
+			cartCounter.textContent = carritoActual.length
+			
+		} catch{
+			
+		}
 	}
 	
-	const cartIcon = document.getElementById("cartIcon")
-	
-	cartIcon.addEventListener('click', function(event){
-		armarCarrito()
-		showModal('carritoModal')
-	})
+	try{
+		const cartIcon = document.getElementById("cartIcon")
+		cartIcon.addEventListener('click', function(event){
+			armarCarrito()
+			showModal('carritoModal')
+		})
+		
+		
+	}catch{
+		
+	}
 	
     const token = localStorage.getItem('token');
 	if (token == null){
 		redirect("/login");
-	} 
+	}
+	
 	
 	document.getElementById("addPeliculaForm").addEventListener("submit", function(event) {
         event.preventDefault();
+        console.log("a")
         addPelicula();
     });
     
@@ -122,6 +134,24 @@ async function openModifyPelicula(id){
 
 	
 	showModal("modifyPeliculaModal")
+	
+}
+
+async function openDetailPelicula(id){
+	
+	const data = await fetchPelicula(id)
+	
+	document.getElementById("detailModalLabel").innerText = data.titulo
+	document.getElementById("detailSitio").innerText = data.url
+	document.getElementById("detailImg").src = data.img
+	document.getElementById("detailMonto").innerText = "Precio: $" + data.precio
+	
+	var generos = data.generos
+	document.getElementById("detailGeneros").innerText = generos.join(", ")
+
+
+	
+	showModal("detailPeliculaModal")
 	
 
 }

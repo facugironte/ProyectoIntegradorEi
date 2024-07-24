@@ -45,13 +45,15 @@
 		    <div class="informacion-pelicula">
 			    <div class="informacion-texto">
 			        <h2 th:text="${pelicula.titulo}"></h2>
+			        <p class = "peliculaPrecio" th:text="'$' + ${pelicula.precio}"></p>
 			    </div>
 			    <div class="informacion-detalles">
 			        <p th:text="${#strings.arrayJoin(pelicula.generos, ', ')}"></p>
 			        <div class="botones">
-			            <button th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:attr="onclick='openModifyPelicula(\'' + ${pelicula.id} + '\')'" class="btn eye-btn" type="submit"><i class="fas fa-eye"></i></button>
-			            <button th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:attr="onclick='deletePelicula(\'' + ${pelicula.id} + '\')'" class="btn delete-btn" type="submit"><i class="fas fa-trash"></i></button>
-			        	<button th:if="${#authorization.expression('hasRole(''SOCIO'')')}" th:attr="onclick='addPeliculatoCart(\'' + ${pelicula.id} + '\')'" class="btn cart-btn" type="submit"><i class="fas fa-shopping-cart"></i></button>
+			            <button th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:attr="onclick='openModifyPelicula(\'' + ${pelicula.id} + '\')'" class="btn eye-btn"><i class="fas fa-eye"></i></button>
+			            <button th:if="${#authorization.expression('hasRole(''SOCIO'')')}" th:attr="onclick='openDetailPelicula(\'' + ${pelicula.id} + '\')'" class="btn eye-btn"><i class="fas fa-eye"></i></button>
+			            <button th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:attr="onclick='deletePelicula(\'' + ${pelicula.id} + '\')'" class="btn delete-btn"><i class="fas fa-trash"></i></button>
+			        	<button th:if="${#authorization.expression('hasRole(''SOCIO'')')}" th:attr="onclick='addPeliculatoCart(\'' + ${pelicula.id} + '\')'" class="btn cart-btn"><i class="fas fa-shopping-cart"></i></button>
 			        </div>
 			    </div>
 			</div>
@@ -137,6 +139,28 @@
 						</div>
                         <button type="submit" class="btn save-btn">Guardar cambios</button>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- DETAIL PELICULA MODAL -->
+    <div class="modal fade" id="detailPeliculaModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            
+                <div class="modal-header">
+                    <h3 class="modal-title" id="detailModalLabel"></h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                
+                <div class="modal-body">
+                
+                            <img width = "300px" id="detailImg" alt="Imagen de la Película">
+                            <p id="detailGeneros"></p>
+                            <p id="detailMonto"></p>
+                            <p>Visitá el sitio: <a id="detailSitio"></a></p>
+
                 </div>
             </div>
         </div>

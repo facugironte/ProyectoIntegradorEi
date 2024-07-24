@@ -64,6 +64,10 @@ body {
   
 }
 
+.peliculaPrecio{
+	margin:0;
+}
+
 .informacion-texto h2 {
     margin: 1px 0;
     font-size: 20px;

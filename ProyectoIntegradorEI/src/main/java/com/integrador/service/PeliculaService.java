@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.integrador.entity.Genero;
+import com.integrador.entity.Orden;
 import com.integrador.entity.Pelicula;
 import com.integrador.repository.GeneroRepository;
+import com.integrador.repository.OrdenRepository;
 import com.integrador.repository.PeliculaRepository;
 
 @Service
@@ -22,6 +24,9 @@ public class PeliculaService {
 	
 	@Autowired
 	private GeneroRepository generoRepository;
+	
+	@Autowired
+	private OrdenRepository ordenRepository;
 	
 	public void savePelicula(com.integrador.model.Pelicula request) {
 		Pelicula pelicula = new Pelicula();
@@ -110,6 +115,13 @@ public class PeliculaService {
 		Pelicula pelicula = peliculaRepository.findById(id).orElse(null);
 		
 		if(pelicula != null) {
+			List<Orden> ordenesConPelicula = ordenRepository.findByPeliculasContains(pelicula);
+			
+			if(!ordenesConPelicula.isEmpty()) {
+				for(Orden o: ordenesConPelicula) {
+					o.getPeliculas().clear();
+				}	
+			}
 			pelicula.getGeneros().clear();
 			peliculaRepository.deleteById(id);
 		}
